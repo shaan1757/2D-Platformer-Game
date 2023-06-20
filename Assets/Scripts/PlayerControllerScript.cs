@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControllerScript : MonoBehaviour
 {
+   public ScoreController score;
     public Animator animator; 
 
     private Rigidbody2D rb2d;
@@ -12,6 +15,9 @@ public class PlayerControllerScript : MonoBehaviour
     public float jump;
     public bool IsGrounded ;
     public bool IsJumping;
+
+    private bool IsAlive = true;
+
     private void Awake() 
     {  
        rb2d =gameObject.GetComponent<Rigidbody2D>(); 
@@ -72,7 +78,10 @@ public class PlayerControllerScript : MonoBehaviour
        {
               animator.SetBool("Crouch",false);
        }
+//jump       
        animator.SetBool("IsGrounded",IsGrounded);
+//death
+       animator.SetBool("IsAlive",IsAlive);       
     }
     private void OnCollisionStay2D(Collision2D other) 
     {
@@ -98,6 +107,41 @@ public class PlayerControllerScript : MonoBehaviour
        {
               IsJumping=false;
        }
+       if(other.gameObject.GetComponent<EnemyController>()!=null)
+       {
+         HealthManager.Health--;
+         if(HealthManager.Health <= 0)
+         {
+            KillPlayer();
+         }
+
+       }
 
     }
-};    
+//func for picking up key
+    public void PickKey()
+    {
+        Debug.Log("Player picked up the collectible");
+        score.ScoreIncrement(25);
+    }
+
+    public void KillPlayer()
+    {
+        //Debug.Log("PLayer killed by enemy");
+        //Destroy(gameObject);
+        Isdead();
+        StartCoroutine(ReloadLevel()); 
+    }
+
+    IEnumerator  ReloadLevel()
+    {
+      
+      yield return new WaitForSeconds(3);
+      SceneManager.LoadScene(0);
+    }
+    private void Isdead()
+    {
+      IsAlive =false;
+    }
+}
+   
