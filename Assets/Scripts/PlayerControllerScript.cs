@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerControllerScript : MonoBehaviour
 {
    public ScoreController score;
+   public GameOver gameover;
     public Animator animator; 
 
     private Rigidbody2D rb2d;
@@ -127,17 +128,8 @@ public class PlayerControllerScript : MonoBehaviour
 
     public void KillPlayer()
     {
-        //Debug.Log("PLayer killed by enemy");
-        //Destroy(gameObject);
         Isdead();
-        StartCoroutine(ReloadLevel()); 
-    }
-
-    IEnumerator  ReloadLevel()
-    {
-      
-      yield return new WaitForSeconds(3);
-      SceneManager.LoadScene(0);
+        gameover.PlayerDead();
     }
     private void Isdead()
     {
