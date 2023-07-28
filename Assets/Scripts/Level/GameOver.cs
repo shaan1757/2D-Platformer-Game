@@ -9,15 +9,13 @@ public class GameOver : MonoBehaviour
     {
         gameObject.SetActive(true);
     }
-    IEnumerator  ReloadLevel()
+    public void  ReloadLevel()
     {
-      
-      yield return new WaitForSeconds(3);
       SceneManager.LoadScene(1);
     }
     public void restart()
     {
-        StartCoroutine(ReloadLevel()); 
+        ReloadLevel(); 
     }
 
     public void Quit()

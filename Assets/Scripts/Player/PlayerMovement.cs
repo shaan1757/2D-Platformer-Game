@@ -1,23 +1,19 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class PlayerControllerScript : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
-   public ScoreController score;
-   public GameOver gameover;
-    public Animator animator; 
+       [SerializeField] private Animator animator; 
 
-    private Rigidbody2D rb2d;
+   [SerializeField]  private Rigidbody2D rb2d;
 
-    public float speed;
-    public float jump;
-    public bool IsGrounded ;
-    public bool IsJumping;
+    [SerializeField] private float speed;
+    [SerializeField] private float jump;
+    [SerializeField] private bool IsGrounded ;
+    [SerializeField] private bool IsJumping;
 
-    private bool IsAlive = true;
+ 
 
     private void Awake() 
     {  
@@ -80,9 +76,7 @@ public class PlayerControllerScript : MonoBehaviour
               animator.SetBool("Crouch",false);
        }
 //jump       
-       animator.SetBool("IsGrounded",IsGrounded);
-//death
-       animator.SetBool("IsAlive",IsAlive);       
+       animator.SetBool("IsGrounded",IsGrounded);     
     }
     private void OnCollisionStay2D(Collision2D other) 
     {
@@ -108,32 +102,6 @@ public class PlayerControllerScript : MonoBehaviour
        {
               IsJumping=false;
        }
-       if(other.gameObject.GetComponent<EnemyController>()!=null)
-       {
-         HealthManager.Health--;
-         if(HealthManager.Health <= 0)
-         {
-            KillPlayer();
-         }
 
-       }
-
-    }
-//func for picking up key
-    public void PickKey()
-    {
-        Debug.Log("Player picked up the collectible");
-        score.ScoreIncrement(25);
-    }
-
-    public void KillPlayer()
-    {
-        Isdead();
-        gameover.PlayerDead();
-    }
-    private void Isdead()
-    {
-      IsAlive =false;
     }
 }
-   

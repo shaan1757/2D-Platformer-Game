@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public GameObject PointA;
-    public GameObject PointB;
+    [SerializeField] private float Damage;
+    [SerializeField] private GameObject PointA;
+    [SerializeField] private GameObject PointB;
     private Rigidbody2D rb;
     private Animator anim;
     private Transform CurrentPoint;
-    public float speed;
+    [SerializeField] private float speed;
 
     private void Start() 
     {
@@ -47,6 +48,7 @@ public class EnemyController : MonoBehaviour
         if(other.gameObject.GetComponent<PlayerControllerScript>() != null)
         {
             anim.SetBool("IsAttacking",true);
+            other.gameObject.GetComponent<Health>().Takedamage(Damage);
         }
         
     }
