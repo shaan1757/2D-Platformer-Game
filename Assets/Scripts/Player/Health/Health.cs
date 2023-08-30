@@ -10,6 +10,7 @@ public class Health : MonoBehaviour
     public float currentHealth{get;private set;}
     private Animator anim;
     private bool Dead;
+    
     private void Awake() 
     {
         currentHealth = startingHealth;    
@@ -29,15 +30,13 @@ public class Health : MonoBehaviour
                 anim.SetTrigger("IsDead");
                 GetComponent<PlayerMovement>().enabled =false;
                 Dead = true;
+                player.KillPlayer();
             } 
         }
     }
     public void update()
     {
-        if(Dead){
-            player.KillPlayer();
-        }
-            
+        
     }
    public void AddHealth(float _value)
    {

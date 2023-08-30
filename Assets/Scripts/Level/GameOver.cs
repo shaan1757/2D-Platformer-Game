@@ -5,21 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
+    public GameObject LevelSelection;
     public void PlayerDead()
     {
         gameObject.SetActive(true);
     }
     public void  ReloadLevel()
     {
-      SceneManager.LoadScene(1);
+      //SceneManager.LoadScene(1);
+      Scene scene = SceneManager.GetActiveScene();
+      SceneManager.LoadScene(scene.buildIndex);
     }
     public void restart()
     {
         ReloadLevel(); 
     }
 
-    public void Quit()
+    public void SelectLevel()
    {
-    Debug.Log("QUIT!");
+     SceneManager.LoadScene("Start");
+     LevelSelection.SetActive(true);
    }
 }
