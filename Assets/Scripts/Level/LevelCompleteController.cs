@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelCompleteController : MonoBehaviour
 {
-    public string newScene;
+    public string nextscene;
     private void OnTriggerEnter2D(Collider2D collision) 
     {
       if(collision.gameObject.GetComponent<PlayerControllerScript>() != null)
       {
         //level completion 
         Debug.Log("you reached the end of the level");
-        SceneManager.LoadScene(newScene);
+        LevelManager.Instance.MarkLevelComplete();
+        SceneManager.LoadScene(nextscene);
       }  
     }
 }
