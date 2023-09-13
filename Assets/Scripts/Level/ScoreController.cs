@@ -17,9 +17,9 @@ public class ScoreController : MonoBehaviour
     {
         UpdateScore();
     }
-    public void ScoreIncrement(int incrementval)
+    public void ScoreIncrement(int incremental)
     {
-        score += incrementval;
+        score += incremental;
         UpdateScore();
     }
     public void UpdateScore()

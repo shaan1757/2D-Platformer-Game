@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+   public GameObject LevelSelection;
    public void PlayGame()
    {
-    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+      LevelSelection.SetActive(true);
    }
    public void QuitGame()
    {
